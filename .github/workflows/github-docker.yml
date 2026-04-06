@@ -1,0 +1,39 @@
+name: Run NGINX Container
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    run-nginx:
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1Checkout code (optional but good practice)
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            # 2Pull NGINX image
+            - name: Pull NGINX image
+              run: docker pull nginx:latest
+
+            # 3Run container
+            - name: Start NGINX container
+              run: |
+                  docker run -d -p 8080:80 --name my-nginx nginx:latest
+
+            # 4Wait a bit (give server time to start)
+            - name: Wait for NGINX
+              run: sleep 5
+
+            # 5Test the server
+            - name: Test NGINX response
+              run: |
+                  curl -I http://localhost:8080
+
+            # 6Cleanup (always good DevOps hygiene 🧼)
+            - name: Stop container
+              run: docker stop my-nginx
+
+            - name: Remove container
+              run: docker rm my-nginx
