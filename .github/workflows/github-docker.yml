@@ -20,6 +20,8 @@ jobs:
             # 3Run container
             - name: Start NGINX container
               run: |
+                  docker ps -a  # List containers to verify it's running
+                  docker logs my-nginx  # Check logs for any issues
                   docker run -d -p 8080:80 --name my-nginx nginx:latest
 
             # 4Wait a bit (give server time to start)
