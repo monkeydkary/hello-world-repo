@@ -20,7 +20,7 @@ jobs:
             # 3Run container
             - name: Start NGINX container
               run: |
-                  docker ls # List containers to verify it's running
+                  docker ps # List containers to verify it's running
                   docker logs my-nginx  # Check logs for any issues
                   docker run -d -p 8080:80 --name my-nginx nginx:latest
                   docker ps -a  # List containers again to confirm it's up and running
