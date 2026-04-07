@@ -37,4 +37,6 @@ jobs:
         run: docker stop my-nginx
 
       - name: Remove container
-        run: docker rm my-nginx
+        run: |
+          docker rm my-nginx
+          docker ps -a  # Final check to confirm cleanup
